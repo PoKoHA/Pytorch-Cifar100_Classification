@@ -12,7 +12,7 @@ CIFAR100_TEST_STD = (0.2682515741720801, 0.2573637364478126, 0.2770957707973042)
 CHECKPOINT_PATH = 'checkpoint'
 
 #total training
-EPOCH = 200
+EPOCH = 3
 MILESTONES = [60, 120, 160] #이정표
 
 DATE_FORMAT = '%A_%d_%B_%Y_%Hh_%Mm_%Ss'
@@ -24,3 +24,4 @@ TIME_NOW = datetime.now().strftime(DATE_FORMAT)
 LOG_DIR = 'runs'
 
 #save weights file per SAVE_EPOCH epoch
+SAVE_EPOCH = 1
