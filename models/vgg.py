@@ -41,7 +41,7 @@ def make_layers(cfg, batch_norm=False):
             continue
 
         layers += [nn.Conv2d(input_channel, 1, kernel_size=3, padding=1)]
-        # padding kernel size in_out channel설정하는
+        # padding kernel size in_out channel설정하는 이유
 
         if batch_norm:
             layers += [nn.BatchNorm2d(1)]
