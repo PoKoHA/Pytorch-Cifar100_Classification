@@ -38,7 +38,7 @@ class SqueezeNet(nn.Module):
 
         super().__init__()
         self.stem = nn.Sequential(
-            nn.Conv2d(3, 96, kernel_size=3, padding=1), # 왜 96개의 채널일까?
+            nn.Conv2d(3, 96, kernel_size=3, padding=1), # 96개의 채널
             nn.BatchNorm2d(96),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(2, 2)

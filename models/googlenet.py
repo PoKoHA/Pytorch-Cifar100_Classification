@@ -8,8 +8,7 @@ class Inception(nn.Module):
         #1x1conv branch
         self.b1 = nn.Sequential(
             nn.Conv2d(input_channels, n1x1, kernel_size=1),
-            nn.BatchNorm2d(n1x1), # 각 레이어에 Norm을 하는  레이어 두어 변형된
-                                  # 분호 나오지않도록 함 미니배치마다 한다는 뜻BAtch norm
+            nn.BatchNorm2d(n1x1),
             nn.ReLU(inplace=True) # inplace : modifiy the input directly
                                   # 메모리 usage 좀 좋아짐 하지만 input을 없앰
         )

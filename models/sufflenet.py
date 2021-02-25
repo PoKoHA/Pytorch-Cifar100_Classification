@@ -29,7 +29,7 @@ class ChannelShuffle(nn.Module):
         batchsize, channels, height, width = x.data.size()
         channels_per_group = int(channels / self.groups)
 
-        # 차원을 하나 키움 ?
+        # 차원을 하나 키움(?)
         # suppose a conv layer with g groups whose output has g x n channels
         # 먼저 출력채널차원을 (g, n)으로 reshape, trnasposing, flattening it back
         x = x.view(batchsize, self.groups, channels_per_group, height, width)
@@ -67,12 +67,12 @@ class ShuffleNetUnit(nn.Module):
 
     def __init__(self, in_channels, out_channels, stage, stride, groups):
         super().__init__()
-        self.bottleneck = nn.Sequential( # 왜 출력 채널에 4하는가?
+        self.bottleneck = nn.Sequential( # /4 (?)
             PointwiseConv2d(in_channels, int(out_channels / 4), groups=groups),
             nn.ReLU(inplace=True)
         )
 
-        # stage2에서는 groups Conv 적용안했다. 입력채널이 상대적으로 너무 작아서??
+        # stage2에서는 groups Conv 적용안했다. 입력채널이 상대적으로 너무 작기때문(?)
         if stage == 2:
             self.bottleneck = nn.Sequential(
                 PointwiseConv2d(in_channels, int(out_channels / 4), groups=groups),
@@ -96,7 +96,7 @@ class ShuffleNetUnit(nn.Module):
         # (2) addition을 cancat으로 대체
         # 적은 추가연산량으로 채널의 차원을 쉽게 키울 수 있다.
 
-        if stride != 1 or in_channels != out_channels: # 입/출력 채널이 같이않을때 왜?
+        if stride != 1 or in_channels != out_channels: # 입/출력 채널이 같이않을때(?)
             self.shortcut = nn.AvgPool2d(3, stride=2, padding=1)
 
             # 여기서 출력채널에 입력채널을 뺴주는 이유
@@ -124,7 +124,7 @@ class ShuffleNetUnit(nn.Module):
 
         return output
 
-class ShuffleNet(nn.Module)
+class ShuffleNet(nn.Module):
 
     def __init__(self, num_blocks, num_classes=100, groups=3):
         super().__init__()
@@ -188,7 +188,7 @@ class ShuffleNet(nn.Module)
         Return:
             a shuffled net stage
         '''
-        strides = [stride] + [1] * (num_blocks - 1) #처음에 2를 주고 나머지 1인 이유?
+        strides = [stride] + [1] * (num_blocks - 1) #처음에 2를 주고 나머지 1(?)
         stage = []
 
         for stride in strides:

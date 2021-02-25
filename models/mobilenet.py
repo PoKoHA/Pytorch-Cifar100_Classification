@@ -6,9 +6,9 @@ class DepthSeperabelConv2d(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size, **kwargs):
         super().__init__()
         # 채널마다 따로 필터 학습
-        self.depthwise = nn.Sequential( # input채널을 똑같이 받음 :이유 노트(해결)
+        self.depthwise = nn.Sequential(
             nn.Conv2d(in_channels, in_channels, kernel_size,
-                      groups=in_channels, **kwargs), # 노트에 이유
+                      groups=in_channels, **kwargs),
             nn.BatchNorm2d(in_channels),
             nn.ReLU(inplace=True)
         )

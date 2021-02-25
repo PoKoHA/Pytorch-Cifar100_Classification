@@ -6,7 +6,7 @@ class BasicBlock(nn.Module):
     basic block for resnet18 and resnet 34
     '''
     expansion = 1 # expansion => 필요 시 output 채널을 늘리기 위해서
-                  # 사용은 어떻게하는가?
+                  # 사용방법
 
     def __init__(self, in_channels, out_channels, stride=1):
         super().__init__()
@@ -56,7 +56,7 @@ class BottleNeck(nn.Module):
 
         if stride != 1 or in_channels != out_channels * BottleNeck.expansion:
             self.shortcut = nn.Sequential(
-                nn.Conv2d(in_channels, out_channels * BottleNeck.expansion, stride=stride, kernel_size=1, bias=Flase),
+                nn.Conv2d(in_channels, out_channels * BottleNeck.expansion, stride=stride, kernel_size=1, bias=False),
                 nn.BatchNorm2d(out_channels * BottleNeck.expansion)
             )
 
