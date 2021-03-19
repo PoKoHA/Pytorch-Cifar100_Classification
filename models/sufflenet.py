@@ -29,7 +29,7 @@ class ChannelShuffle(nn.Module):
         batchsize, channels, height, width = x.data.size()
         channels_per_group = int(channels / self.groups)
 
-        # 차원을 하나 키움(?)
+        # 차원을 하나 키움
         # suppose a conv layer with g groups whose output has g x n channels
         # 먼저 출력채널차원을 (g, n)으로 reshape, trnasposing, flattening it back
         x = x.view(batchsize, self.groups, channels_per_group, height, width)
@@ -38,7 +38,6 @@ class ChannelShuffle(nn.Module):
         x = x.view(batchsize, -1, height, width)
 
         return x
-        '''이 부분 다시 보기'''
 
 class DepthwiseConv2d(nn.Module):
 
@@ -72,7 +71,7 @@ class ShuffleNetUnit(nn.Module):
             nn.ReLU(inplace=True)
         )
 
-        # stage2에서는 groups Conv 적용안했다. 입력채널이 상대적으로 너무 작기때문(?)
+        # stage2에서는 groups Conv 적용안했다. 입력채널이 상대적으로 너무 작기때문
         if stage == 2:
             self.bottleneck = nn.Sequential(
                 PointwiseConv2d(in_channels, int(out_channels / 4), groups=groups),
@@ -96,7 +95,7 @@ class ShuffleNetUnit(nn.Module):
         # (2) addition을 cancat으로 대체
         # 적은 추가연산량으로 채널의 차원을 쉽게 키울 수 있다.
 
-        if stride != 1 or in_channels != out_channels: # 입/출력 채널이 같이않을때(?)
+        if stride != 1 or in_channels != out_channels: # 입/출력 채널이 같이않을때
             self.shortcut = nn.AvgPool2d(3, stride=2, padding=1)
 
             # 여기서 출력채널에 입력채널을 뺴주는 이유
